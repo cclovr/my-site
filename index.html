@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Title</title>
+    <script src="https://kit.fontawesome.com/3491bec657.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/general.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="main">
+        <section class="main scroll-section" data-background-role="wrapper" id="main">
+            <div class="container">
+                <div class="text animation-text">
+                    <h1 class="title">Hi, I'm Tanya. <br> Front-end developer <br>and street photographer</h1>
+                    <p class="description">
+                        Photographer from Ukraine based in Berlin, Germany 🇩🇪
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="link"><i class="fa-brands fa-square-instagram"></i></a>
+                        <a href="#" class="link"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#" class="link"><i class="fa-brands fa-square-github"></i></a>
+                    </div>
+                </div>
+                <div class="photo">
+                    <img src="assets/img/myphoto.jpg" alt="photo">
+                </div>
+            </div>
+        </section>
+
+        <section class="section-menu" id="section-menu">
+            <div>
+                <div class="menu-content">
+                    <a href="pages/resume.html" class="menu-item">My resume</a>
+                    <a href="pages/photos.html" class="menu-item">My photos</a>
+                </div>
+            </div>
+        </section>
+        <div class="overlay"></div>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/ScrollToPlugin.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/95/three.min.js"></script>
+
+    <script id="shader--vertex" type="x-shader/x-vertex">
+        varying vec2 vUv;
+
+        void main() {
+            vUv = uv;
+
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0 );
+            gl_Position = projectionMatrix * mvPosition;
+        }
+    </script>
+    <script id="shader--fragment" type="x-shader/x-fragment">
+        uniform vec2 iResolution;
+        uniform float animationTime;
+        uniform vec3 color1;
+        uniform vec3 color2;
+        uniform float progress;
+        uniform float size;
+
+        varying vec2 vUv;
+
+        void main() {
+            vec2 a = vec2( iResolution.x / iResolution.y, 1);
+            vec2 c = gl_FragCoord.xy / iResolution.xy * a * size + animationTime * .3;
+
+            float k = .1 + cos(c.y + sin(.148 - animationTime)) + 2.4 * animationTime;
+            float w = .9 + sin(c.x + cos(.628 + animationTime)) - 0.7 * animationTime;
+            float d = length(c);
+            float s = 7. * cos(d+w) * sin(k+w);
+
+            vec3 patternColor = vec3( 0.5 + 0.5 * cos( s + vec3( 0.5, 0.5, 0.5 ) ) );
+
+            vec3 color = vec3( 0.5, 0.5, 0.5 );
+            if( (
+                patternColor.x
+              + patternColor.y
+              + patternColor.z ) / 3.0 > progress ) {
+                color = color1;
+            } else {
+                color = color2;
+            }
+
+            gl_FragColor = vec4( color, 1.0 );
+        }
+    </script>
+    <script type="text/javascript" src="assets/js/animate-background.js"></script>
+    <script type="text/javascript" src="assets/js/animate-onscroll.js"></script>
+    <script type="text/javascript" src="assets/js/smooth-change-link.js"></script>
+</body>
+</html>
