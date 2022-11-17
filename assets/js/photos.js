@@ -6,7 +6,7 @@ const data = {
     photoset_id: '72177720302652005',
     format: 'json',
     nojsoncallback: 1,
-    extras: 'url_z',
+    extras: 'url_c',
 };
 
 const parameters = new URLSearchParams(data);
@@ -21,7 +21,7 @@ fetch(url).then(response => {
     const photos = res.photos.photo.map(item => {
         const photo = document.createElement('img');
         const photoWrapper = document.createElement('div');
-        photo.src = item.url_z;
+        photo.src = item.url_c;
         photoWrapper.classList.add('photo-wrapper')
         photoWrapper.appendChild(photo)
         return photoWrapper
@@ -39,7 +39,7 @@ fetch(url).then(response => {
     const photos = res.photos.photo.map(item => {
         const photo = document.createElement('img');
         const photoWrapper = document.createElement('div');
-        photo.src = item.url_z;
+        photo.src = item.url_c;
         photoWrapper.classList.add('photo-wrapper')
         photoWrapper.appendChild(photo)
         return photoWrapper
