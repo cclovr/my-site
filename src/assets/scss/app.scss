@@ -1,0 +1,17 @@
+// Add Font
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&&display=swap');
+
+//Custom mixins
+@import "mixins/mixins";
+
+//Component specific styles
+@import "components/common";
+@import "components/section";
+
+//Partials specific styles
+@import "partials/footer";
+@import "partials/header";
+
+//Pages styles
+@import "pages/home";
+@import "pages/photos";
