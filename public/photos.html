@@ -16,21 +16,20 @@
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KCML66M"
-                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <main class="main">
       <div class="container photos-container">
         <h1 class="title">Photos</h1>
-        <div class="photos-container" id="photos-container"></div>
-        <div class="image-preloader"></div>
+        <div class="photos-wrapper" id="photos-wrapper"></div>
         <div class="pagination">
           <button class="pagination-btn" id="prev-page"><i class="fa-solid fa-angle-left"></i></button>
           <button class="page-number">1</button>
           <button class="page-number">2</button>
           <button class="page-number">3</button>
           <button class="pagination-btn" id="next-page"><i class="fa-solid fa-angle-right"></i></button>
+        </div>
+
+        <div class="photo-full-screen" id="photo-full-screen">
+            <img src="" alt="" id="photo-full-size" class="photo-full-size">
         </div>
       </div>
     </main>

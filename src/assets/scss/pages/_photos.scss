@@ -1,23 +1,27 @@
-.photos-container .photo-wrapper {
+.photos-container {
+  flex-direction: column;
+}
+.photos-wrapper {
+  min-height: 100vh;
+  display: flex;
+  gap: 2.3%;
+  flex-wrap: wrap;
+}
+.photo-wrapper {
   flex: 0 31.8%;
   min-width: 200px;
   margin-top: 2.3%;
   cursor: pointer;
-  object-fit: cover;
   overflow: hidden;
+  img {
+    object-fit: cover;
+    transition: .4s;
+    width: 100%;
+    height: 100%;
+  }
 }
-.photos-container img {
-  object-fit: cover;
-  transition: .4s;
-  width: 100%;
-}
-.photos-container .photo-wrapper:hover img{
+.photo-wrapper:hover img{
   transform: scale(1.1);
-}
-.photos-container {
-  display: flex;
-  gap: 2.3%;
-  flex-wrap: wrap;
 }
 .pagination {
   margin: 1rem auto;
@@ -50,20 +54,35 @@
   border-color: #b8b8b8;
   cursor: pointer;
 }
-.image-preloader {
-  height: 52px;
-  width: 52px;
-  background-color: #ccc;
-  @include background-gradient;
-  animation: shine-avatar $animation-duration infinite linear;
+.photo-full-screen {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  background: rgba(0,0,0, .8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.show-photo.photo-full-screen {
+  display: flex;
+}
+.photo-full-size {
+  max-height: 93%;
+  max-width: 80%;
+  cursor: auto;
 }
 
-@keyframes shine-avatar {
-  0% {
-    background-position: -100px + $photo-offset;
+@media (max-width: 992px) {
+  .photo-wrapper {
+    flex: 0 48.8%;
   }
-  40%,
-  100% {
-    background-position: 140px + $photo-offset;
+}
+@media (max-width: 768px) {
+  .photo-wrapper {
+    flex: 0 100%;
+    height: 300px;
+    margin-top: 20px;
   }
 }

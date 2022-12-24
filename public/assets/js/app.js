@@ -15,10 +15,13 @@ ScrollTrigger.create({
 
 
 let pageNumberBtns = document.querySelectorAll('.page-number');
-let pages;
-const photosContainer = document.getElementById('photos-container');
+const photosContainer = document.getElementById('photos-wrapper');
 const nextPageBtn = document.getElementById('next-page')
 const prevPageBtn = document.getElementById('prev-page')
+let photosLargeSize;
+let photos;
+let pages;
+let photoFullScreen = document.getElementById('photo-full-screen');
 
 getPhotos();
 disablePrevBtn();
@@ -47,29 +50,62 @@ function getPhotos(pageNumber) {
         per_page: 9,
         page: pageNumber || 1
     };
+    const dataFullSizeImages = {...data, extras: 'url_k'};
+    const parametersSmallImages = new URLSearchParams(data);
+    const parametersFullSizeImages = new URLSearchParams(dataFullSizeImages);
 
-    const parameters = new URLSearchParams(data);
 
-    const url = `https://api.flickr.com/services/rest/?${parameters}`;
-
-    fetch(url).then(response => {
-        return response.json();
-    }).then(res => {
-        pages = res.photos.pages;
-        Array.from(pageNumberBtns).find(el => el.textContent === data.page.toString()).classList.add('active')
-        const photos = res.photos.photo.map(item => {
-            const photo = document.createElement('img');
-            const photoWrapper = document.createElement('div');
-            photo.src = item.url_c;
-            photoWrapper.classList.add('photo-wrapper')
-            photoWrapper.appendChild(photo)
-            return photoWrapper
-        })
-        for (var i = 0; i < photos.length; ++i) {
-            photosContainer.appendChild(photos[i]);
-        }
+    fetch(createUrl(parametersSmallImages))
+        .then(response => response.json())
+        .then(res => {
+            pages = res.photos.pages;
+            Array.from(pageNumberBtns).find(el => el.textContent === data.page.toString()).classList.add('active')
+            const photos = res.photos.photo.map(item => {
+                const photo = document.createElement('img');
+                const photoWrapper = document.createElement('div');
+                photo.src = item.url_c;
+                photoWrapper.setAttribute('id', item.id)
+                photoWrapper.classList.add('photo-wrapper')
+                photoWrapper.appendChild(photo)
+                return photoWrapper
+            })
+            for (var i = 0; i < photos.length; ++i) {
+                photosContainer.appendChild(photos[i]);
+            }
+            addEventOnPhoto();
+    }).then(() => {
+        fetch(createUrl(parametersFullSizeImages))
+            .then(response => response.json())
+            .then(res => {
+                photosLargeSize = res.photos.photo;
+            });
     });
 }
+
+function createUrl(param) {
+    return `https://api.flickr.com/services/rest/?${param}`;
+}
+
+function addEventOnPhoto() {
+    photos = document.querySelectorAll('.photo-wrapper');
+    photos.forEach(photo => {
+        photo.addEventListener('click', function (e) {
+            showPhotoFullSize(e.currentTarget.id);
+        })
+    })
+}
+
+function showPhotoFullSize(photoId) {
+    photoFullScreen.classList.add('show-photo');
+    const photoFullSize = document.getElementById('photo-full-size');
+    photoFullSize.src = photosLargeSize.find(el => el.id === photoId).url_k;
+}
+
+photoFullScreen.addEventListener('click', function (e) {
+    if (e.target === this) {
+        photoFullScreen.classList.remove('show-photo')
+    }
+})
 
 nextPageBtn.addEventListener('click', function () {
     pageNumberBtns.forEach(page => {
