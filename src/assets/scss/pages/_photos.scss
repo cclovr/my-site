@@ -54,7 +54,7 @@
   border-color: #b8b8b8;
   cursor: pointer;
 }
-.photo-full-screen {
+.container-full-screen {
   position: fixed;
   height: 100%;
   width: 100%;
@@ -66,9 +66,9 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-}
-.show-photo.photo-full-screen {
-  display: flex;
+  &.show-photo {
+    display: flex;
+  }
 }
 .photo-full-size {
   max-height: 93%;

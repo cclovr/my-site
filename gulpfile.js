@@ -56,7 +56,7 @@ function scriptsIndex() {
 }
 
 function scripts() {
-    let stream = gulp.src('src/assets/js/**/*.js')
+    let stream = gulp.src('src/assets/js/*.js')
     .pipe(sourcemaps.init())
     .pipe(concat('app.js'))
     .pipe(sourcemaps.write('./'))

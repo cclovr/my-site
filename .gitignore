@@ -10,3 +10,4 @@ public
 .firebaserc
 .firebase
 /public/
+/src/js/config.js
