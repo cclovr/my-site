@@ -38,7 +38,7 @@ function fonts() {
 }
 
 function html() {
-    return gulp.src('src/pages/**/*.html')
+    return gulp.src(['src/pages/**/*.html', 'index.html'])
     .pipe(panini({
         root: 'src/pages/',
         layouts: 'src/layouts/',
@@ -105,7 +105,7 @@ function watch(done) {
 
 exports.watch = watch;
 
-exports.default = gulp.series(clean, gulp.parallel(css, scripts, scriptsIndex, images, fonts, reset, html), watch);
+exports.default = gulp.series(clean, gulp.parallel(css, scripts, scriptsIndex, images, fonts, html), watch);
 
 exports.build = gulp.series(clean, gulp.parallel(css, scripts, scriptsIndex, images, fonts, html, function(done){
     console.log('Building production ready assets');

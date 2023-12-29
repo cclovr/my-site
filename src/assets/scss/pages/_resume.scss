@@ -13,4 +13,48 @@
 }
 .resume-block {
   margin-bottom: 3rem;
+  ul {
+    font-family: 'Roboto', sans-serif;
+    text-transform: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    li {
+      line-height: 1.7rem;
+    }
+  }
+}
+.company-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .position-title,
+  .company-name,
+  .date {
+    font-family: 'Roboto', sans-serif;
+    text-transform: none;
+  }
+  .position-title {
+    font-style: italic;
+  }
+  .company-name {
+    font-weight: 500;
+  }
+  .date {
+    font-weight: 100;
+  }
+}
+.companies-list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+@media (min-width: 720px) {
+  .company-item {
+    width: 50%;
+  }
+  .companies-list {
+    gap: 0;
+  }
 }
